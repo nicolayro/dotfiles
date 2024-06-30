@@ -69,7 +69,9 @@ ZSH_THEME="robbyrussell" # set by `omz`
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode zsh-syntax-highlighting zsh-autosuggestions macos yarn)
+plugins=(git zsh-autosuggestions macos vi-mode)
+# vi-mode
+# zsh-syntax-highlighting
 
 source $ZSH/oh-my-zsh.sh
 
@@ -100,6 +102,8 @@ alias ohmyzsh="vim ~/.oh-my-zsh/.oh-my-zsh.sh"
 alias zshconfig="vim ~/.zshrc"
 alias vimconfig="vim ~/.vimrc"
 alias py="python3"
+alias vim="nvim"
+alias vi="\vim"
 
 # Change directory to ntnu project
 function ntnu () {
@@ -111,6 +115,49 @@ function p () {
     source ~/projects/scripts/projects.sh
 }
 
+
+function c() {
+    FOLDER=~/capra
+
+    # Find names for all the direct children in the folder
+    PROJECTS=$(find $FOLDER -mindepth 1 -maxdepth 1 -not -path '*/.*' | awk -F "/" '{ print $NF }')
+
+    # Display the list of projects and allow the user to choose
+    CHOICE=$(echo "$PROJECTS" | fzf --border --margin 1,5% --preview "tree -L 2 $FOLDER/{}")
+
+    # Change directory to the chosen project
+    cd $FOLDER/$CHOICE
+}
+
 # Settings
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#666666"
 
+# Oz
+alias ozc='/Applications/Mozart2.app/Contents/Resources/bin/ozc'
+alias ozemulator='/Applications/Mozart2.app/Contents/Resources/bin/ozemulator'
+alias ozem='/Applications/Mozart2.app/Contents/Resources/bin/ozemulator'
+alias ozengine='/Applications/Mozart2.app/Contents/Resources/bin/ozengine'
+alias ozwish='/Applications/Mozart2.app/Contents/Resources/bin/ozwish'
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/nicolayro/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/nicolayro/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/nicolayro/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/nicolayro/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+alias week='date +%V'
+
+# bindkey -v // Vim motions
+
+function enable_vi_mode_prompt() {
+    MODE_INDICATOR="%F{blue}(n) %f"
+    INSERT_MODE_INDICATOR="%F{yellow}(i) %f"
+
+    PROMPT="$PROMPT\$(vi_mode_prompt_info)"
+    RPROMPT="$RPROMPT"
+    VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
+    KEYTIMEOUT=15
+}
+
+# enable_vi_mode_prompt
