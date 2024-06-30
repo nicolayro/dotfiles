@@ -17,5 +17,9 @@ require("gruvbox").setup({
     transparent_mode = true
 })
 
+require("onedark").setup({
+    transparent = true
+})
+
 -- Set actual colorsceme here
 vim.cmd.colorscheme("rose-pine")

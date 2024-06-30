@@ -16,6 +16,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
+vim.opt.cinoptions = "l1"   -- Solves switch/case indent in C.
 
 -- Extra columns
 vim.opt.number = true
@@ -34,4 +35,3 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
-
