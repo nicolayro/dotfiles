@@ -1,7 +1,4 @@
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
-vim.opt.shortmess:append("c")
-
-local cmp = require "cmp"
+local cmp = require("cmp")
 
 cmp.setup {
   snippet = {
@@ -9,8 +6,24 @@ cmp.setup {
       vim.snippet.expand(args.body)
     end,
   },
+  completion = {
+    autocomplete = {
+      "TextChanged", "InsertEnter"
+    },
+    completeopt = 'menu,menuone',
+    keyword_pattern = [[\%(-\?\d\+\%(\.\d\+\)\?\|\h\w*\%(-\w*\)*\)]],
+    keyword_length = 1,
+  },
   mapping = cmp.mapping.preset.insert {
-    ["<C-n>"] = cmp.mapping.select_next_item(),
+    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-n>"] = cmp.mapping(function()
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        cmp.complete()
+      end
+    end),
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-y>"] = cmp.mapping.confirm {
       cmp.mapping.confirm {
@@ -48,7 +61,10 @@ cmp.setup {
   sources = {
     { name = "nvim_lsp" },
     { name = "luasnip" },
+    { name = "vimtex" }
     -- { name = "buffer" },
   },
 }
 
+-- vim.opt.completeopt = { "menu", "menuone", "noselect" }
+vim.opt.shortmess:append("c")

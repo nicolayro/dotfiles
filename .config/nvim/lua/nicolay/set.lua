@@ -8,7 +8,7 @@ vim.opt.updatetime = 250
 vim.opt.guicursor = ""
 vim.opt.termguicolors = true
 vim.opt.wrap = false
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 4
 
 -- Tabs
 vim.opt.tabstop = 4

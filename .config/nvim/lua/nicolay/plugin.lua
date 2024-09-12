@@ -26,6 +26,15 @@ require("lazy").setup({
   "tpope/vim-fugitive",
   "lewis6991/gitsigns.nvim",
 
+  -- Surround
+  "tpope/vim-surround",
+
+  -- Compile and run inside vim
+  "tpope/vim-dispatch",
+
+  -- Some jumping nice keymaps
+  "tpope/vim-unimpaired",
+
   -- Nice statusbar
   {
     "nvim-lualine/lualine.nvim",
@@ -85,16 +94,27 @@ require("lazy").setup({
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
 
-  -- Easy comments
-  {
-    "numToStr/Comment.nvim",
-    opts = {},
-    lazy = false,
-  },
-
   -- File explorer
   {
     'stevearc/oil.nvim',
     opts = {},
   },
+
+  -- Better comments
+  {
+    'numToStr/Comment.nvim',
+  },
+
+
+  -- Latex support
+  {
+    "lervag/vimtex",
+    lazy = false,
+    init = function ()
+      vim.keymap.set('n', '<leader>ll', '<plug>(vimtex-compile)', {})
+      vim.keymap.set('n', '<leader>lv', '<plug>(vimtex-view)', {})
+      vim.g.vimtex_view_method = 'sioyek'
+    end,
+    dependencies = { "micangl/cmp-vimtex" }
+  }
 })
