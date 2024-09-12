@@ -69,7 +69,7 @@ ZSH_THEME="robbyrussell" # set by `omz`
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions macos vi-mode)
+plugins=(git zsh-autosuggestions macos)
 # vi-mode
 # zsh-syntax-highlighting
 
@@ -86,7 +86,7 @@ source $ZSH/oh-my-zsh.sh
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+export EDITOR='nvim'
 # fi
 
 # Compilation flags
@@ -102,12 +102,18 @@ alias ohmyzsh="vim ~/.oh-my-zsh/.oh-my-zsh.sh"
 alias zshconfig="vim ~/.zshrc"
 alias vimconfig="vim ~/.vimrc"
 alias py="python3"
-alias vim="nvim"
 alias vi="\vim"
+alias vim="nvim"
+alias mupdf="mupdf-gl"
 
 # Change directory to ntnu project
 function ntnu () {
     source ~/projects/scripts/ntnu.sh
+}
+
+# Change directory to master
+function master () {
+    source ~/projects/scripts/master.sh
 }
 
 # Change directory to personal project
@@ -127,6 +133,10 @@ function c() {
 
     # Change directory to the chosen project
     cd $FOLDER/$CHOICE
+}
+
+function todo() {
+    vim ~/ntnu/todo
 }
 
 # Settings
@@ -160,4 +170,7 @@ function enable_vi_mode_prompt() {
     KEYTIMEOUT=15
 }
 
-# enable_vi_mode_prompt
+function vip {
+    PDF=$(find ~/Zotero -type f | grep 'pdf' | fzf)
+    vipdf $PDF
+}
